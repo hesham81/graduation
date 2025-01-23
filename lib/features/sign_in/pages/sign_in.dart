@@ -1,8 +1,13 @@
+import 'package:authentication_buttons/authentication_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:tgo/core/extensions/extensions.dart';
 import 'package:tgo/core/theme/app_colors.dart';
 import 'package:tgo/core/widget/custom_label.dart';
 import 'package:tgo/core/widget/custom_text_form_field.dart';
+import 'package:tgo/core/widget/dividers_word.dart';
+
+import '../../../core/widget/custom_elevated_button.dart';
+import '../../first_screen/pages/first_screen.dart';
 
 class SignIn extends StatefulWidget {
   static const routeName = '/sign-in';
@@ -25,7 +30,7 @@ class _SignInState extends State<SignIn> {
       resizeToAvoidBottomInset: true,
       body: Form(
         key: key,
-        autovalidateMode: AutovalidateMode.always,
+        autovalidateMode: AutovalidateMode.onUnfocus,
         child: Column(
           children: [
             SafeArea(
@@ -89,7 +94,8 @@ class _SignInState extends State<SignIn> {
                     0.01.height.vSpace,
                     CustomTextFormField(
                       hintText: 'Password',
-                      isPassword: true, callBack: passwordValidator,
+                      isPassword: true,
+                      callBack: passwordValidator,
                     ).hPadding(25),
                     Align(
                       alignment: Alignment.centerRight,
@@ -111,7 +117,38 @@ class _SignInState extends State<SignIn> {
                           ),
                         ),
                       ),
-                    )
+                    ),
+                    0.018.height.vSpace,
+                    CustomElevatedButton(
+                      text: 'Sign In',
+                      onPressed: () {
+                        if (key.currentState!.validate()) {
+                          Navigator.pushNamed(context, FirstScreen.routeName);
+                        }
+                      },
+                    ).hPadding(
+                      0.13.width,
+                    ),
+                    DividersWord(text: "or sign in with").vPadding(20),
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          AuthenticationButton(
+                            authenticationMethod: AuthenticationMethod.google,
+                            onPressed: () {},
+                          ).hPadding(0.025.height),
+                          AuthenticationButton(
+                            authenticationMethod: AuthenticationMethod.twitter,
+                            onPressed: () {},
+                          ).hPadding(0.025.height),
+                          AuthenticationButton(
+                            authenticationMethod: AuthenticationMethod.facebook,
+                            onPressed: () {},
+                          ).hPadding(0.025.height),
+                        ],
+                      ),
+                    ),
                   ],
                 ).vPadding(20),
               ),
@@ -123,10 +160,6 @@ class _SignInState extends State<SignIn> {
   }
 
   String? emailValidator(String? value) {
-    if (username.text.isEmpty) {
-      return 'Please enter an email';
-    }
-
     const emailPattern =
         r'^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.([a-zA-Z]{2,})$';
     final regex = RegExp(emailPattern);
@@ -139,10 +172,6 @@ class _SignInState extends State<SignIn> {
   }
 
   String? passwordValidator(String? value) {
-    if (password.text == null || password.text.isEmpty) {
-      return 'Please enter your password';
-    }
-
     const passwordPattern =
         r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@#$%^&+=*!]).{8,}$';
     final regex = RegExp(passwordPattern);

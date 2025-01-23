@@ -36,25 +36,29 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       decoration: InputDecoration(
         hintText: widget.hintText,
         suffixIcon: (widget.isPassword)
-            ? (showedPassword
-                ? IconButton(
-                    onPressed: () {
-                      showedPassword = !showedPassword;
-                      setState(() {});
-                    },
-                    icon: const Icon(
-                      Icons.visibility,
-                    ),
-                  )
-                : IconButton(
-                    onPressed: () {
-                      showedPassword = !showedPassword;
-                      setState(() {});
-                    },
-                    icon: const Icon(
-                      Icons.visibility_off,
-                    ),
-                  ))
+            ? (
+                showedPassword
+                    ? IconButton(
+                        onPressed: () {
+                          showedPassword = !showedPassword;
+                          setState(() {});
+                        },
+                        icon:  Icon(
+                          Icons.visibility,
+                          color: Colors.black,
+                        ),
+                      )
+                    : IconButton(
+                        onPressed: () {
+                          showedPassword = !showedPassword;
+                          setState(() {});
+                        },
+                        icon:  Icon(
+                          Icons.visibility_off,
+                          color: Colors.black,
+                        ),
+                      )
+              )
             : Icon(
                 widget.suffixIcon,
                 color: Colors.black.withOpacity(0.7),

@@ -3,7 +3,15 @@ import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
 
 class CustomElevatedButton extends StatelessWidget {
-  const CustomElevatedButton({super.key});
+  final String text;
+
+  final Function() onPressed;
+
+  const CustomElevatedButton({
+    super.key,
+    required this.text,
+    required this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +26,9 @@ class CustomElevatedButton extends StatelessWidget {
           horizontal: 80,
         ),
       ),
-      onPressed: () {},
+      onPressed:onPressed,
       child: Text(
-        "Sign In",
+        text,
         style: TextStyle(
           color: AppColors.whiteColor,
           fontWeight: FontWeight.bold,
